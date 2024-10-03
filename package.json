@@ -19,6 +19,8 @@
     "@prisma/client": "5.16.2",
     "@types/bcryptjs": "^2.4.6",
     "bcryptjs": "^2.4.3",
+    "false-base-template": "file:",
+    "false-lib-rbac": "git+https://github.com/falseprojects/false-lib-rbac.git",
     "fastify": "^4.28.1",
     "fastify-plugin": "^4.5.1",
     "fastify-type-provider-zod": "^2.0.0",
