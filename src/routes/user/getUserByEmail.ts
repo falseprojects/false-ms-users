@@ -1,8 +1,8 @@
 import { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
-import { prisma } from '../lib/prisma';
+import { prisma } from '../../lib/prisma';
 import z from 'zod';
-import { BadRequestError } from './errors/badRequestError';
+import { BadRequestError } from '../errors/badRequestError';
 
 export async function getUserByEmail(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post('/user/getByEmail', {

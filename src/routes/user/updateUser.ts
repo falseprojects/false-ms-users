@@ -2,7 +2,7 @@ import { FastifyInstance } from 'fastify';
 import { z } from 'zod';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { prisma } from '@/lib/prisma';
-import { BadRequestError } from './errors/badRequestError';
+import { BadRequestError } from '../errors/badRequestError';
 
 export async function updateUser(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().put('/user/update/:userId', {

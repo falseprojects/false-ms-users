@@ -2,7 +2,6 @@ import { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { prisma } from '@/lib/prisma';
 import z from 'zod';
-import { BadRequestError } from './errors/badRequestError';
 
 export async function getAllUsers(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get('/user/getAll', {
@@ -23,7 +22,7 @@ export async function getAllUsers(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
-      await request.getCurrentUser();
+      // await request.getCurrentUser();
 
       const users = await prisma.user.findMany();
       return reply.status(200).send(users);
