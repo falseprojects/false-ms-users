@@ -22,7 +22,7 @@ export async function getAllUsers(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
-      // await request.getCurrentUser();
+      await request.getCurrentUser();
 
       const users = await prisma.user.findMany();
       return reply.status(200).send(users);

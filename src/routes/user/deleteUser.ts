@@ -1,8 +1,7 @@
+import { deleteUserService } from '@/service/userService';
 import { FastifyInstance } from 'fastify';
-import { z } from 'zod';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
-import { prisma } from '@/lib/prisma';
-import { BadRequestError } from '../errors/badRequestError';
+import { z } from 'zod';
 
 export async function deleteUser(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().delete('/user/delete/:userId', {
@@ -19,22 +18,13 @@ export async function deleteUser(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
-      // await request.getCurrentUser();
+      await request.getCurrentUser();
 
       const { userId } = request.params;
       const id = parseInt(userId);
 
-      const existingUser = await prisma.user.findUnique({
-        where: { user_id: id },
-      });
-
-      if (!existingUser) {
-        throw new BadRequestError('User not found');
-      }
-
-      await prisma.user.delete({
-        where: { user_id: id },
-      });
+      //ToDo: Transaction delete (user-wishlist/points etc)
+      await deleteUserService(id);
 
       return reply.status(200).send({ message: 'User deleted successfully' });
     },

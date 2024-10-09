@@ -1,8 +1,8 @@
+import { findUserByEmail } from '@/service/userService';
 import { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
-import { prisma } from '../../lib/prisma';
 import z from 'zod';
-import { BadRequestError } from '../errors/badRequestError';
+import { BadRequestError } from '@/routes/errors/badRequestError';
 
 export async function getUserByEmail(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post('/user/getByEmail', {
@@ -27,12 +27,9 @@ export async function getUserByEmail(app: FastifyInstance) {
       await request.getCurrentUser();
 
       const { email } = request.body;
-      const user = await prisma.user.findUnique({
-        where: {
-          email,
-        },
-      });
+      const user = await findUserByEmail(email);
 
+      //ToDo: Ajustar tratamento de erro
       if (!user) {
         throw new BadRequestError('User not found');
       }
