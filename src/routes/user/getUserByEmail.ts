@@ -24,8 +24,6 @@ export async function getUserByEmail(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
-      await request.getCurrentUser();
-
       const { email } = request.body;
       const user = await findUserByEmail(email);
 
