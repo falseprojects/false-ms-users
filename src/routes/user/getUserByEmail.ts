@@ -29,7 +29,6 @@ export async function getUserByEmail(app: FastifyInstance) {
       const { email } = request.body;
       const user = await findUserByEmail(email);
 
-      //ToDo: Ajustar tratamento de erro
       if (!user) {
         throw new BadRequestError('User not found');
       }

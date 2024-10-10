@@ -1,7 +1,10 @@
 import { FastifyInstance } from 'fastify';
 import { z } from 'zod';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
-import { findUserById, updateUserVerifiedEmail } from '@/service/userService';
+import {
+  findUserByEmail,
+  updateUserVerifiedEmail,
+} from '@/service/userService';
 import { BadRequestError } from '@/routes/errors/badRequestError';
 
 export async function updateVerifiedEmail(app: FastifyInstance) {
@@ -10,27 +13,22 @@ export async function updateVerifiedEmail(app: FastifyInstance) {
       tags: ['users'],
       summary: 'Update user email verification status',
       body: z.object({
-        user_id: z.number(),
-        verified_email: z.enum(['T', 'F']),
+        email: z.string().email(),
       }),
       response: {
         200: z.object({}),
       },
     },
     handler: async (request, reply) => {
-      await request.getCurrentUser();
+      const { email } = request.body;
 
-      //ToDo: Buscar user_id do token
-
-      const { user_id, verified_email } = request.body;
-
-      const user = await findUserById(user_id);
+      const user = await findUserByEmail(email);
 
       if (!user) {
         throw new BadRequestError('User not found');
       }
 
-      await updateUserVerifiedEmail(user_id, verified_email);
+      await updateUserVerifiedEmail(email);
 
       return reply.status(200).send();
     },

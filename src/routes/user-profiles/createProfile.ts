@@ -9,7 +9,6 @@ export async function createProfile(app: FastifyInstance) {
       tags: ['profiles'],
       summary: 'Create a new profile for a user',
       body: z.object({
-        user_id: z.number(),
         name: z.string(),
         last_name: z.string(),
         phone: z.string(),
@@ -35,10 +34,9 @@ export async function createProfile(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
-      await request.getCurrentUser();
+      const { user_id } = await request.getCurrentUser();
 
       const {
-        user_id,
         name,
         last_name,
         phone,

@@ -4,13 +4,10 @@ import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
 export async function deleteUser(app: FastifyInstance) {
-  app.withTypeProvider<ZodTypeProvider>().delete('/user/delete/:userId', {
+  app.withTypeProvider<ZodTypeProvider>().delete('/user/delete', {
     schema: {
       tags: ['users'],
       summary: 'Delete an existing user',
-      params: z.object({
-        userId: z.string(),
-      }),
       response: {
         200: z.object({
           message: z.string(),
@@ -18,13 +15,10 @@ export async function deleteUser(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
-      await request.getCurrentUser();
+      const { user_id } = await request.getCurrentUser();
 
-      const { userId } = request.params;
-      const id = parseInt(userId);
-
-      //ToDo: Transaction delete (user-wishlist/points etc)
-      await deleteUserService(id);
+      //TODO: Transaction Delete (user-wishlist/points etc)
+      await deleteUserService(user_id);
 
       return reply.status(200).send({ message: 'User deleted successfully' });
     },

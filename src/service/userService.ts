@@ -33,14 +33,11 @@ export async function deleteUserService(user_id: number) {
   });
 }
 
-export async function updateUserVerifiedEmail(
-  user_id: number,
-  verified_email: string
-) {
+export async function updateUserVerifiedEmail(email: string) {
   const updatedUser = await prisma.user.update({
-    where: { user_id },
+    where: { email },
     data: {
-      verified_email,
+      verified_email: 'T',
     },
   });
 

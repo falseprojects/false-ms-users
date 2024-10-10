@@ -9,9 +9,6 @@ export async function getProfileByUser(app: FastifyInstance) {
     schema: {
       tags: ['profiles'],
       summary: 'Get profile for a user',
-      body: z.object({
-        user_id: z.number(),
-      }),
       response: {
         200: z.object({
           user_profile_id: z.number(),
@@ -29,8 +26,7 @@ export async function getProfileByUser(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
-      await request.getCurrentUser();
-      const { user_id } = request.body;
+      const { user_id } = await request.getCurrentUser();
 
       const profile = await getProfileByUserService(user_id);
 

@@ -10,7 +10,6 @@ export async function updateProfile(app: FastifyInstance) {
       summary: 'Update a user profile',
       body: z.object({
         user_profile_id: z.number(),
-        user_id: z.number(),
         name: z.string(),
         last_name: z.string(),
         phone: z.string(),
@@ -36,11 +35,10 @@ export async function updateProfile(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
-      await request.getCurrentUser();
+      const { user_id } = await request.getCurrentUser();
 
       const {
         user_profile_id,
-        user_id,
         name,
         last_name,
         phone,

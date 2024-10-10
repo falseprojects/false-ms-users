@@ -8,9 +8,6 @@ export async function getWishlistByUser(app: FastifyInstance) {
     schema: {
       tags: ['wishlists'],
       summary: 'Get all wishlists for a user',
-      body: z.object({
-        user_id: z.number(),
-      }),
       response: {
         200: z.array(
           z.object({
@@ -25,8 +22,7 @@ export async function getWishlistByUser(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
-      await request.getCurrentUser();
-      const { user_id } = request.body;
+      const { user_id } = await request.getCurrentUser();
 
       const wishlists = await getWishlistByUserService(user_id);
 

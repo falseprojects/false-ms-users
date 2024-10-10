@@ -9,18 +9,13 @@ export async function isEmailVerified(app: FastifyInstance) {
     schema: {
       tags: ['users'],
       summary: 'Verify if user email is verified',
-      body: z.object({
-        user_id: z.number(),
-      }),
       response: {
         200: z.object({}),
         204: z.object({}),
       },
     },
     handler: async (request, reply) => {
-      await request.getCurrentUser();
-
-      const { user_id } = request.body;
+      const { user_id } = await request.getCurrentUser();
 
       const user = await findUserById(user_id);
 

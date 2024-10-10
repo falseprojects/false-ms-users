@@ -4,13 +4,10 @@ import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
 export async function updateUser(app: FastifyInstance) {
-  app.withTypeProvider<ZodTypeProvider>().put('/user/update/:userId', {
+  app.withTypeProvider<ZodTypeProvider>().put('/user/update', {
     schema: {
       tags: ['users'],
       summary: 'Update an existing user',
-      params: z.object({
-        userId: z.string(),
-      }),
       body: z.object({
         email: z.string().email(),
         password_hash: z
@@ -27,14 +24,15 @@ export async function updateUser(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
-      await request.getCurrentUser();
+      const { user_id } = await request.getCurrentUser();
 
-      const { userId } = request.params;
       const { email, password_hash } = request.body;
 
-      const id = parseInt(userId);
-
-      const updatedUser = await updateUserService(id, email, password_hash);
+      const updatedUser = await updateUserService(
+        user_id,
+        email,
+        password_hash
+      );
 
       return reply.status(200).send(updatedUser);
     },

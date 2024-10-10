@@ -9,7 +9,6 @@ export async function updatePoints(app: FastifyInstance) {
       tags: ['points'],
       summary: 'Update points for a user',
       body: z.object({
-        user_id: z.number(),
         user_points_id: z.number(),
         point_amount: z.number(),
         operation: z.enum(['increase', 'decrease']),
@@ -25,8 +24,8 @@ export async function updatePoints(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
-      await request.getCurrentUser();
-      const { user_id, user_points_id, operation, point_amount } = request.body;
+      const { user_id } = await request.getCurrentUser();
+      const { user_points_id, operation, point_amount } = request.body;
 
       const updatedPoints = await updatePointsService(
         user_id,

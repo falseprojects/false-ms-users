@@ -10,7 +10,6 @@ export async function createWishlist(app: FastifyInstance) {
       summary: 'Create a new wishlist for a user',
       body: z.object({
         wishlist_name: z.string().min(1, 'Wishlist name cannot be empty'),
-        user_id: z.number(),
         products_ids: z.array(z.number()),
       }),
       response: {
@@ -25,8 +24,8 @@ export async function createWishlist(app: FastifyInstance) {
       },
     },
     handler: async (request, reply) => {
-      await request.getCurrentUser();
-      const { wishlist_name, user_id, products_ids } = request.body;
+      const { user_id } = await request.getCurrentUser();
+      const { wishlist_name, products_ids } = request.body;
 
       const newWishlist = await createWishlistService(
         wishlist_name,
