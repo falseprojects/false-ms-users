@@ -9,7 +9,6 @@ export async function updateProfile(app: FastifyInstance) {
       tags: ['profiles'],
       summary: 'Update a user profile',
       body: z.object({
-        user_profile_id: z.number(),
         name: z.string(),
         last_name: z.string(),
         phone: z.string(),
@@ -20,15 +19,13 @@ export async function updateProfile(app: FastifyInstance) {
       }),
       response: {
         200: z.object({
-          user_profile_id: z.number(),
-          user_id: z.number(),
           name: z.string(),
           last_name: z.string(),
           phone: z.string(),
-          birth_date: z.string(),
-          document: z.string(),
-          contact_preference: z.string(),
-          gender: z.string(),
+          birth_date: z.string().nullable(),
+          document: z.string().nullable(),
+          contact_preference: z.string().nullable(),
+          gender: z.string().nullable(),
           created_at: z.date(),
           updated_at: z.date(),
         }),
@@ -38,7 +35,6 @@ export async function updateProfile(app: FastifyInstance) {
       const { user_id } = await request.getCurrentUser();
 
       const {
-        user_profile_id,
         name,
         last_name,
         phone,
@@ -49,7 +45,6 @@ export async function updateProfile(app: FastifyInstance) {
       } = request.body;
 
       const updatedProfile = await updateProfileService({
-        user_profile_id,
         user_id,
         name,
         last_name,

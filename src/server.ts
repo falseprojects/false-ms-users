@@ -9,10 +9,10 @@ import {
   ZodTypeProvider,
 } from 'fastify-type-provider-zod';
 import 'dotenv/config';
-import { routes } from './routes/routes';
 import { fastifyJwt } from '@fastify/jwt';
-import { errorHandler } from './routes/errors/errorHandling';
-import { auth } from './middlewares/auth';
+import { errorHandler } from '@/routes/errors/errorHandling';
+import { auth } from '@/middlewares/auth';
+import { routes } from '@/routes';
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 

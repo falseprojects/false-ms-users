@@ -16,7 +16,6 @@ export async function createWishlist(app: FastifyInstance) {
         201: z.object({
           user_wishlist_id: z.number(),
           wishlist_name: z.string(),
-          user_id: z.number(),
           products_ids: z.array(z.number()),
           created_at: z.date(),
           updated_at: z.date(),

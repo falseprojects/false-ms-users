@@ -55,10 +55,10 @@ model UserProfile {
   name               String
   last_name          String
   phone              String
-  birth_date         String
-  document           String
-  contact_preference String
-  gender             String
+  birth_date         String?
+  document           String?
+  contact_preference String?
+  gender             String?
   created_at         DateTime @default(now())
   updated_at         DateTime @updatedAt
 

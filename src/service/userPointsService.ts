@@ -13,21 +13,20 @@ export async function createPointsService(
   });
 }
 
-export async function getCurrentPoints(user_points_id: number) {
+export async function getCurrentPoints(user_id: number) {
   return await prisma.usersPoints.findUnique({
     where: {
-      user_points_id,
+      user_id,
     },
   });
 }
 
 export async function updatePointsService(
   user_id: number,
-  user_points_id: number,
   point_amount: number,
   operation: string
 ) {
-  const currentPoints = await getCurrentPoints(user_points_id);
+  const currentPoints = await getCurrentPoints(user_id);
 
   if (!currentPoints) {
     throw new BadRequestError('User points not found');
@@ -47,7 +46,6 @@ export async function updatePointsService(
   return await prisma.usersPoints.update({
     where: {
       user_id,
-      user_points_id,
     },
     data: {
       point_amount,

@@ -12,8 +12,8 @@ import { createProfile } from '@/routes/user-profiles/createProfile';
 import { getProfileByUser } from '@/routes/user-profiles/getProfileByUser';
 import { updateProfile } from '@/routes/user-profiles/updateProfile';
 import { deleteWishlist } from '@/routes/user-wishlist/deleteWishlist';
-import { getWishlistByUser } from '@/routes/user-wishlist/getWishlistByUser';
 import { updateWishlist } from '@/routes/user-wishlist/updateWishlist';
+import { getWishlistsByUser } from './user-wishlist/getWishlistsByUser';
 
 export async function routes(app: FastifyInstance) {
   await getAllUsers(app);
@@ -29,6 +29,6 @@ export async function routes(app: FastifyInstance) {
   await updateProfile(app);
   await createWishlist(app);
   await deleteWishlist(app);
-  await getWishlistByUser(app);
+  await getWishlistsByUser(app);
   await updateWishlist(app);
 }
