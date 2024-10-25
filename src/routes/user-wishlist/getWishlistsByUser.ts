@@ -4,7 +4,7 @@ import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
 export async function getWishlistsByUser(app: FastifyInstance) {
-  app.withTypeProvider<ZodTypeProvider>().post('/wishlist/user', {
+  app.withTypeProvider<ZodTypeProvider>().post('/wishlist/', {
     schema: {
       tags: ['wishlists'],
       summary: 'Get all wishlists for a user',
