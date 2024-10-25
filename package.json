@@ -23,7 +23,6 @@
     "@types/bcryptjs": "^2.4.6",
     "bcryptjs": "^2.4.3",
     "false-base-template": "file:",
-    "false-lib-rbac": "git+https://github.com/falseprojects/false-lib-rbac.git",
     "false-ms-user": "file:",
     "fastify": "^4.28.1",
     "fastify-plugin": "^4.5.1",
