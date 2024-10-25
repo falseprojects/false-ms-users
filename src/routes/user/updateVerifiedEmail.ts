@@ -1,37 +1,36 @@
-import { findUserByEmail } from '@/service/userService';
 import { FastifyInstance } from 'fastify';
+import { z } from 'zod';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
-import z from 'zod';
+import {
+  findUserByEmail,
+  updateUserVerifiedEmail,
+} from '@/service/userService';
 import { BadRequestError } from '@/routes/errors/badRequestError';
 
-export async function getUserByEmail(app: FastifyInstance) {
-  app.withTypeProvider<ZodTypeProvider>().post('/user/getByEmail', {
+export async function updateVerifiedEmail(app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().put('/user/updateVerifiedEmail', {
     schema: {
       tags: ['users'],
-      summary: 'Get user by email',
+      summary: 'Update user email verification status',
       body: z.object({
         email: z.string().email(),
       }),
       response: {
-        200: z.object({
-          user_id: z.number(),
-          email: z.string(),
-          password_hash: z.string(),
-          user_wishlist_id: z.number().nullable(),
-          created_at: z.date(),
-          updated_at: z.date(),
-        }),
+        200: z.object({}),
       },
     },
     handler: async (request, reply) => {
       const { email } = request.body;
+
       const user = await findUserByEmail(email);
 
       if (!user) {
         throw new BadRequestError('User not found');
       }
 
-      return reply.status(200).send(user);
+      await updateUserVerifiedEmail(email);
+
+      return reply.status(200).send();
     },
   });
 }

@@ -1,9 +1,7 @@
+import { createUserService } from '@/service/userService';
 import { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
-import { prisma } from '../../lib/prisma';
 import z from 'zod';
-import { BadRequestError } from '../errors/badRequestError';
-import { createUserService } from '@/service/userService';
 
 export async function createUser(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post('/user/create', {
@@ -28,14 +26,6 @@ export async function createUser(app: FastifyInstance) {
     },
     handler: async (request, reply) => {
       const { email, password_hash } = request.body;
-
-      const existingUser = await prisma.user.findUnique({
-        where: { email },
-      });
-
-      if (existingUser) {
-        throw new BadRequestError('User already exists');
-      }
 
       const newUser = await createUserService(email, password_hash);
 
