@@ -4,8 +4,8 @@ import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import {
   findUserByEmail,
   updateUserVerifiedEmail,
-} from '@/service/userService';
-import { BadRequestError } from '@/routes/errors/badRequestError';
+} from '../../service/userService';
+import { BadRequestError } from '../errors/badRequestError';
 
 export async function updateVerifiedEmail(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().put('/user/updateVerifiedEmail', {

@@ -10,9 +10,9 @@ import {
 } from 'fastify-type-provider-zod';
 import 'dotenv/config';
 import { fastifyJwt } from '@fastify/jwt';
-import { errorHandler } from '@/routes/errors/errorHandling';
-import { auth } from '@/middlewares/auth';
-import { routes } from '@/routes';
+import { routes } from './routes';
+import { auth } from './middlewares/auth';
+import { errorHandler } from './routes/errors/errorHandling';
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -54,6 +54,6 @@ app.register(fastifyCors);
 app.register(routes);
 app.register(auth);
 
-app.listen({ port: PORT }).then(() => {
+app.listen({ port: PORT || 3001, host: '0.0.0.0' }).then(() => {
   console.log('Server is running');
 });

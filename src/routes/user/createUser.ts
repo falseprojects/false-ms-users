@@ -1,7 +1,7 @@
-import { createUserService } from '@/service/userService';
 import { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
+import { createUserService } from '../../service/userService';
 
 export async function createUser(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post('/user/create', {

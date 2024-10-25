@@ -1,5 +1,5 @@
-import { prisma } from '@/lib/prisma';
-import { BadRequestError } from '@/routes/errors/badRequestError';
+import { prisma } from '../lib/prisma';
+import { BadRequestError } from '../routes/errors/badRequestError';
 
 export async function createPointsService(
   user_id: number,

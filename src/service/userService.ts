@@ -1,6 +1,6 @@
-import { prisma } from '@/lib/prisma';
-import { BadRequestError } from '@/routes/errors/badRequestError';
-import { createPointsService } from '@/service/userPointsService';
+import { prisma } from '../lib/prisma';
+import { BadRequestError } from '../routes/errors/badRequestError';
+import { createPointsService } from './userPointsService';
 
 export async function createUserService(email: string, password_hash: string) {
   const existingUser = await findUserByEmail(email);

@@ -1,7 +1,7 @@
-import { createWishlistService } from '@/service/userWishlistService';
 import { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
+import { createWishlistService } from '../../service/userWishlistService';
 
 export async function createWishlist(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post('/wishlist/create', {

@@ -1,7 +1,7 @@
-import { updateProfileService } from '@/service/userProfilesService';
 import { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
+import { updateProfileService } from '../../service/userProfilesService';
 
 export async function updateProfile(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().put('/profiles/update', {

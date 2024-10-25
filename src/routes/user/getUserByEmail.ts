@@ -1,8 +1,8 @@
-import { findUserByEmail } from '@/service/userService';
 import { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
-import { BadRequestError } from '@/routes/errors/badRequestError';
+import { BadRequestError } from '../errors/badRequestError';
+import { findUserByEmail } from '../../service/userService';
 
 export async function getUserByEmail(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post('/user/getByEmail', {

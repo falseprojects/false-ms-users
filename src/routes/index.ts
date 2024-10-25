@@ -1,19 +1,19 @@
 import { FastifyInstance } from 'fastify';
-import { getUserByEmail } from '@/routes/user/getUserByEmail';
-import { createUser } from '@/routes/user/createUser';
-import { updateUser } from '@/routes/user/updateUser';
-import { deleteUser } from '@/routes/user/deleteUser';
-import { getAllUsers } from '@/routes/user/getAllUsers';
-import { createWishlist } from '@/routes/user-wishlist/createWishlist';
-import { isEmailVerified } from '@/routes/user/isEmailVerified';
-import { updateVerifiedEmail } from '@/routes/user/updateVerifiedEmail';
-import { updatePoints } from '@/routes/user-points/updatePoints';
-import { createProfile } from '@/routes/user-profiles/createProfile';
-import { getProfileByUser } from '@/routes/user-profiles/getProfileByUser';
-import { updateProfile } from '@/routes/user-profiles/updateProfile';
-import { deleteWishlist } from '@/routes/user-wishlist/deleteWishlist';
-import { updateWishlist } from '@/routes/user-wishlist/updateWishlist';
 import { getWishlistsByUser } from './user-wishlist/getWishlistsByUser';
+import { createUser } from './user/createUser';
+import { deleteUser } from './user/deleteUser';
+import { getAllUsers } from './user/getAllUsers';
+import { getUserByEmail } from './user/getUserByEmail';
+import { updateUser } from './user/updateUser';
+import { isEmailVerified } from './user/isEmailVerified';
+import { updateVerifiedEmail } from './user/updateVerifiedEmail';
+import { updatePoints } from './user-points/updatePoints';
+import { createProfile } from './user-profiles/createProfile';
+import { getProfileByUser } from './user-profiles/getProfileByUser';
+import { updateProfile } from './user-profiles/updateProfile';
+import { createWishlist } from './user-wishlist/createWishlist';
+import { deleteWishlist } from './user-wishlist/deleteWishlist';
+import { updateWishlist } from './user-wishlist/updateWishlist';
 
 export async function routes(app: FastifyInstance) {
   await getAllUsers(app);

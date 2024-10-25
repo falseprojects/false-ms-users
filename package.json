@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "pnpm tsx watch src/server.ts",
     "db:migrate": "pnpm prisma migrate dev",
-    "db:studio": "pnpm prisma studio"
+    "db:studio": "pnpm prisma studio",
+    "init": "pnpm i",
+    "build": "tsc",
+    "start": "pnpm run build && node dist/server.js"
   },
   "keywords": [],
   "author": "",

@@ -1,7 +1,7 @@
-import { deleteUserService } from '@/service/userService';
 import { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
+import { deleteUserService } from '../../service/userService';
 
 export async function deleteUser(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().delete('/user/delete', {
